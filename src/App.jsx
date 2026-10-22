@@ -1563,8 +1563,8 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-            {/* Trạng thái kết nối Supabase: Chỉ hiển thị cho Admin hoặc khi lần đầu chưa kết nối */}
-            {(!supabase.isConfigured || isAdmin) && !supabaseConfig.lockedByEnv && (
+            {/* Trạng thái kết nối Supabase: Ẩn hoàn toàn ngay khi đã kết nối */}
+            {!supabase.isConfigured && (
               <button
                 type="button"
                 onClick={() => setActiveTab('database')}
@@ -1648,7 +1648,7 @@ export default function App() {
               { id: 'competitions', label: 'Thi đua các tuần', icon: Trophy, visible: true },
               { id: 'photos', label: `Hình ảnh hoạt động (${activityPhotos.length})`, icon: ImageIcon, visible: true },
               { id: 'users', label: `Phân quyền (${allProfiles.length})`, icon: ShieldCheck, visible: isAdmin },
-              { id: 'database', label: 'Cấu hình DB (Chỉ Admin)', icon: Database, visible: (!supabase.isConfigured || isAdmin) && !supabaseConfig.lockedByEnv }
+              { id: 'database', label: 'Thiết lập kết nối lần đầu', icon: Database, visible: !supabase.isConfigured }
             ].filter((item) => item.visible).map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -2784,8 +2784,8 @@ export default function App() {
           </div>
         )}
 
-        {/* ================= TAB 7: CẤU HÌNH SUPABASE & SQL DEPLOY VERCEL (CHỈ ADMIN HOẶC KHI CHƯA CẤU HÌNH) ================= */}
-        {activeTab === 'database' && (!supabase.isConfigured || isAdmin) && !supabaseConfig.lockedByEnv && (
+        {/* ================= TAB 7: CẤU HÌNH SUPABASE & SQL DEPLOY VERCEL (ẨN HOÀN TOÀN KHI ĐÃ KẾT NỐI) ================= */}
+        {activeTab === 'database' && !supabase.isConfigured && (
           <div className="space-y-6">
             <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
               <div className="flex items-center gap-2.5 mb-2">
